@@ -1,3 +1,4 @@
+import { processListDataModel } from "@/model/ListDataModel";
 import { RootState } from "@/store/store";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -8,7 +9,8 @@ export type ITodoList = {
     listDatas: {
         id: string;
         name: string;
-        type: string;
+        type: "Fruit" | "Vegetable" | "None";
+        status: "Fruit" | "Vegetable" | "None";
     }[];
     onDragActiveCard: string| number | null;
 }
@@ -31,7 +33,8 @@ const autoDeleteTodoListSlice = createSlice({
                     break;
                 }
                 case 'listDatas': {
-                    state.listDatas = value;
+                    state.listDatas = processListDataModel(value);
+                    console.log(processListDataModel(value));
                     break;
                 }
             }

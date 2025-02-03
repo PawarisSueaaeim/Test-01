@@ -5,12 +5,13 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 type Props = {
+    id?: string;
     position: number;
-    type: string;
+    type?: string;
     className?: string;
 };
 
-export default function DropArea({ position, type, className }: Props) {
+export default function DropArea({id, position, type, className}: Props) {
     const dispatch = useDispatch();
     const [showDropArea, setShowDropArea] = useState(false);
 
@@ -20,6 +21,7 @@ export default function DropArea({ position, type, className }: Props) {
 
     const handleOnDrop = () => {
         setShowDropArea(false);
+        console.log(id,type);
         // if (onDragActiveCard === null || onDragActiveCard === undefined) {
         //     return;
         // }
