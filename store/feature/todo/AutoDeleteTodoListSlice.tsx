@@ -1,0 +1,54 @@
+import { RootState } from "@/store/store";
+import { createSlice } from "@reduxjs/toolkit";
+
+const setSessionStorage = (state: any) => sessionStorage.setItem('pragmaticDragAndDropStateValue', JSON.stringify(state));
+const storedState = sessionStorage.getItem('pragmaticDragAndDropStateValue');
+
+export type ITodoList = {
+    listDatas: {
+        id: string;
+        name: string;
+        type: string;
+    }[];
+    onDragActiveCard: string| number | null;
+}
+
+const initialState: ITodoList = storedState ? JSON.parse(storedState) : {
+    listData: [],
+    onDragActiveCard: null,
+};
+
+const autoDeleteTodoListSlice = createSlice({
+    name: "autoDeleteTodoListSlice",
+    initialState: initialState,
+    reducers: {
+        setState: (state, action) => {
+            const {value, keyValue} = action.payload;
+
+            switch (keyValue) {
+                case 'onDragActiveCard': {
+                    state.onDragActiveCard = value;
+                    break;
+                }
+                case 'listDatas': {
+                    state.listDatas = value;
+                    break;
+                }
+            }
+
+            setSessionStorage(state);
+        },
+        handleSetTasksData: (state, action) => {
+            const {value, id} = action.payload;
+            console.log(value, id);
+            state.listDatas.find((item) => item.id === id)!.type = value;
+        }
+    },
+})
+
+export const {
+    setState,
+    handleSetTasksData,
+} = autoDeleteTodoListSlice.actions;
+export default autoDeleteTodoListSlice.reducer;
+export const autoDeleteTodoListSelector = (state: RootState) => state.autoDeleteTodoListSlice;
