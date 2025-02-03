@@ -2,9 +2,6 @@ import { processListDataModel } from "@/model/ListDataModel";
 import { RootState } from "@/store/store";
 import { createSlice } from "@reduxjs/toolkit";
 
-const setSessionStorage = (state: any) => sessionStorage.setItem('pragmaticDragAndDropStateValue', JSON.stringify(state));
-const storedState = sessionStorage.getItem('pragmaticDragAndDropStateValue');
-
 export type ITodoList = {
     listDatas: {
         id: string;
@@ -12,11 +9,13 @@ export type ITodoList = {
         type: "Fruit" | "Vegetable" | "None";
         status: "Fruit" | "Vegetable" | "None";
     }[];
+    queueDatas: string[];
     onDragActiveCard: string | number | null;
-}
+};
 
-const initialState: ITodoList = storedState ? JSON.parse(storedState) : {
-    listData: [],
+const initialState: ITodoList =  {
+    listDatas: [],
+    queueDatas: [],
     onDragActiveCard: null,
 };
 
@@ -25,33 +24,27 @@ const autoDeleteTodoListSlice = createSlice({
     initialState: initialState,
     reducers: {
         setState: (state, action) => {
-            const {value, keyValue} = action.payload;
+            const { value, keyValue } = action.payload;
 
             switch (keyValue) {
-                case 'onDragActiveCard': {
+                case "onDragActiveCard": {
                     state.onDragActiveCard = value;
                     break;
                 }
-                case 'listDatas': {
+                case "listDatas": {
                     state.listDatas = processListDataModel(value);
                     console.log(processListDataModel(value));
                     break;
                 }
             }
-
-            setSessionStorage(state);
         },
-        handleOnClickData: (state, action) => {
-            const {value, id} = action.payload;
-            console.log(value, id);
+        setStatus: (state, action) => {
+            const { id, value } = action.payload;
             state.listDatas.find((item) => item.id === id)!.status = value;
-        }
+        },
     },
-})
+});
 
-export const {
-    setState,
-    handleOnClickData,
-} = autoDeleteTodoListSlice.actions;
+export const { setState, setStatus } = autoDeleteTodoListSlice.actions;
 export default autoDeleteTodoListSlice.reducer;
 export const autoDeleteTodoListSelector = (state: RootState) => state.autoDeleteTodoListSlice;

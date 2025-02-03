@@ -3,7 +3,7 @@ import { Fragment } from "react/jsx-runtime";
 import Column, { IListData } from "./Column";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setState } from "@/store/feature/todo/AutoDeleteTodoListSlice";
+import { setState, setStatus } from "@/store/feature/todo/AutoDeleteTodoListSlice";
 import { RootState } from "@/store/store";
 
 type Props = {
@@ -18,12 +18,22 @@ export default function PragmaticDragAndDropComponent({ Datas }: Props) {
         dispatch(setState({ value: Datas, keyValue: "listDatas" }));
     }, [Datas]);
 
+    useEffect(() => {
+        listDatas.map((item) => {
+            if (item.status !== "None") {
+                setTimeout(() => {
+                    dispatch(setStatus({ id: item.id, value: "None" }));
+                }, 5000);
+            }
+        });
+    }, [listDatas]);
+
     return (
         <Fragment>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Column title="List Data" listDatas={listDatas} type="None"/>
-                <Column title="Fruit" listDatas={listDatas} type="Fruit"/>
-                <Column title="Vegetable" listDatas={listDatas} type="Vegetable"/>
+                <Column title="List Data" listDatas={listDatas} type="None" />
+                <Column title="Fruit" listDatas={listDatas} type="Fruit" />
+                <Column title="Vegetable" listDatas={listDatas} type="Vegetable" />
             </div>
         </Fragment>
     );
