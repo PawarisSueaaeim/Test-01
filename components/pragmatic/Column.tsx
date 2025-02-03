@@ -4,7 +4,6 @@ import CardTask, { IMenu } from "./CardTask";
 import { FaRegFilePdf } from "react-icons/fa";
 import DropArea from "./DropArea";
 import { useDispatch } from "react-redux";
-import { handleSetTasksData, ITodoList } from "@/store/feature/todo/AutoDeleteTodoListSlice";
 
 export type IListData = {
     id: string;
@@ -17,10 +16,9 @@ type Props = {
     title: string;
     listDatas: IListData[];
     type?: "Fruit" | "Vegetable" | "None";
-    status: "Fruit" | "Vegetable" | "None";
 };
 
-export default function Column({ title, listDatas, type, status }: Props) {
+export default function Column({ title, listDatas, type }: Props) {
     return (
         <div className="flex flex-col bg-white p-2 rounded-lg shadow-md">
             <div className="font-medium text-md m-2">{title}</div>
@@ -30,7 +28,7 @@ export default function Column({ title, listDatas, type, status }: Props) {
                 position={0}
             />
             {listDatas?.map((item: IListData, index) => {
-                if (status === "None") {
+                if (type === "None" && item.status === "None") {
                     return (
                         <Fragment key={index}>
                             <CardTask
@@ -39,7 +37,7 @@ export default function Column({ title, listDatas, type, status }: Props) {
                                 index={index}
                                 type={item.type}
                             />
-                            <DropArea id={item.id} position={index + 1}/>
+                            <DropArea id={item.id} name={item.name} position={index + 1} type="None"/>
                         </Fragment>
                     );
                 }else if (type === "Fruit" && item.status === "Fruit") {
@@ -51,7 +49,7 @@ export default function Column({ title, listDatas, type, status }: Props) {
                                 index={index}
                                 type={item.type}
                             />
-                            <DropArea id={item.id} type={type} position={index + 1}/>
+                            <DropArea id={item.id} name={item.name} type={type} position={index + 1}/>
                         </Fragment>
                     );
                 }else if (type === "Vegetable" && item.status === "Vegetable") {
@@ -63,7 +61,7 @@ export default function Column({ title, listDatas, type, status }: Props) {
                                 index={index}
                                 type={item.type}
                             />
-                            <DropArea id={item.id} type={type} position={index + 1}/>
+                            <DropArea id={item.id} name={item.name} type={type} position={index + 1}/>
                         </Fragment>
                     );
                 }

@@ -1,5 +1,5 @@
 "use client";
-import { setState } from "@/store/feature/todo/AutoDeleteTodoListSlice";
+import { handleOnClickData, setState } from "@/store/feature/todo/AutoDeleteTodoListSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -31,6 +31,7 @@ export default function CardTask({ id, name, index, type }: Props) {
 
     const handleOnClickCard = () => {
         console.log(id, name, type);
+        dispatch(handleOnClickData({id: id, value: type}))
     }
 
     return (

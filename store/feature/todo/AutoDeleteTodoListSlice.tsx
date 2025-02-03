@@ -12,7 +12,7 @@ export type ITodoList = {
         type: "Fruit" | "Vegetable" | "None";
         status: "Fruit" | "Vegetable" | "None";
     }[];
-    onDragActiveCard: string| number | null;
+    onDragActiveCard: string | number | null;
 }
 
 const initialState: ITodoList = storedState ? JSON.parse(storedState) : {
@@ -41,17 +41,17 @@ const autoDeleteTodoListSlice = createSlice({
 
             setSessionStorage(state);
         },
-        handleSetTasksData: (state, action) => {
+        handleOnClickData: (state, action) => {
             const {value, id} = action.payload;
             console.log(value, id);
-            state.listDatas.find((item) => item.id === id)!.type = value;
+            state.listDatas.find((item) => item.id === id)!.status = value;
         }
     },
 })
 
 export const {
     setState,
-    handleSetTasksData,
+    handleOnClickData,
 } = autoDeleteTodoListSlice.actions;
 export default autoDeleteTodoListSlice.reducer;
 export const autoDeleteTodoListSelector = (state: RootState) => state.autoDeleteTodoListSlice;

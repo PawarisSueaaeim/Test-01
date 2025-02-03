@@ -21,9 +21,9 @@ export default function PragmaticDragAndDropComponent({ Datas }: Props) {
     return (
         <Fragment>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Column title="List Data" listDatas={listDatas} type="None" status="None"/>
-                <Column title="Fruit" listDatas={listDatas} type="Fruit" status="Fruit"/>
-                <Column title="Vegetable" listDatas={listDatas} type="Vegetable" status="Vegetable"/>
+                <Column title="List Data" listDatas={listDatas} type="None"/>
+                <Column title="Fruit" listDatas={listDatas} type="Fruit"/>
+                <Column title="Vegetable" listDatas={listDatas} type="Vegetable"/>
             </div>
         </Fragment>
     );
