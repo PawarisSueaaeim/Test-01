@@ -1,9 +1,7 @@
 "use client";
 import { Fragment } from "react/jsx-runtime";
-import CardTask, { IMenu } from "./CardTask";
-import { FaRegFilePdf } from "react-icons/fa";
+import CardTask from "./CardTask";
 import DropArea from "./DropArea";
-import { useDispatch } from "react-redux";
 
 export type IListData = {
     id: string;

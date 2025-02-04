@@ -1,7 +1,7 @@
 "use client";
-import { setState, setStatus } from "@/store/feature/todo/AutoDeleteTodoListSlice";
-import { RootState } from "@/store/store";
 import { useState } from "react";
+import { setStatus } from "@/store/feature/todo/AutoDeleteTodoListSlice";
+import { RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 

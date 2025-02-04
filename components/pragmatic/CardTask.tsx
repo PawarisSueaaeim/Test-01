@@ -1,6 +1,6 @@
 "use client";
+import React from "react";
 import { setState, setStatus } from "@/store/feature/todo/AutoDeleteTodoListSlice";
-import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export type IMenu = {
@@ -16,18 +16,17 @@ type Props = {
     type: "Fruit" | "Vegetable" | "None";
 };
 
-export default function CardTask({ id, name, index, type }: Props) {
+export default function CardTask({ id, name, type }: Props) {
     const dispatch = useDispatch();
 
     const handleSetActiveCard = () => {
         dispatch(setState({ value: id, keyValue: "onDragActiveCard" }));
-        // console.log(id, name, type);
         dispatch(setState({ value: type, keyValue: "onDragActiveType" }));
     };
 
     const handleUnsetActiveCard = () => {
         dispatch(setState({ value: "", keyValue: "onDragActiveCard" }));
-        // console.log(id, name, type);
+        dispatch(setState({ value: "", keyValue: "onDragActiveType" }));
     };
 
     const handleOnClickCard = () => {
