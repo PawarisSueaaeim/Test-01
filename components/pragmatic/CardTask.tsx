@@ -20,17 +20,17 @@ export default function CardTask({ id, name, index, type }: Props) {
     const dispatch = useDispatch();
 
     const handleSetActiveCard = () => {
-        // dispatch(setState({ value: index, keyValue: "onDragActiveCard" }));
-        console.log(id, name, type);
+        dispatch(setState({ value: id, keyValue: "onDragActiveCard" }));
+        // console.log(id, name, type);
+        dispatch(setState({ value: type, keyValue: "onDragActiveType" }));
     };
 
     const handleUnsetActiveCard = () => {
-        // dispatch(setState({ value: null, keyValue: "onDragActiveCard" }));
-        console.log(id, name, type);
+        dispatch(setState({ value: "", keyValue: "onDragActiveCard" }));
+        // console.log(id, name, type);
     };
 
     const handleOnClickCard = () => {
-        console.log(id, name, type);
         dispatch(setStatus({id: id, value: type}))
     }
 

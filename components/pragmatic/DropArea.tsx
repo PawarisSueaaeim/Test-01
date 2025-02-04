@@ -1,44 +1,43 @@
 "use client";
-import { setState } from "@/store/feature/todo/AutoDeleteTodoListSlice";
+import { setState, setStatus } from "@/store/feature/todo/AutoDeleteTodoListSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 type Props = {
     id?: string;
-    position: number;
+    position?: number;
     name?: string;
     type?: string;
     className?: string;
 };
 
-export default function DropArea({id, position, name, type, className}: Props) {
+export default function DropArea({ type, className }: Props) {
     const dispatch = useDispatch();
     const [showDropArea, setShowDropArea] = useState(false);
 
-    const { onDragActiveCard, listDatas } = useSelector(
+    const { onDragActiveCard, onDragActiveType } = useSelector(
         (state: RootState) => state.autoDeleteTodoListSlice
     );
 
     const handleOnDrop = () => {
         setShowDropArea(false);
-        console.log(id, name, type, position, onDragActiveCard);
-        // if (onDragActiveCard === null || onDragActiveCard === undefined) {
-        //     return;
-        // }
-        // const taskToMove = listDatas[onDragActiveCard];
-        // const updateTasks = listDatas.filter(
-        //     (_, index: number) => index !== onDragActiveCard
-        // );
+        console.log(onDragActiveCard, type, onDragActiveType);
 
-        // updateTasks.splice(position, 0, {
-        //     ...taskToMove,
-        //     status: status,
-        // });
-
-        // setTimeout(() => {
-        //     dispatch(setState({ value: updateTasks, keyValue: "tasksData" }));
-        // }, 150);
+        if (type === onDragActiveType) {
+            dispatch(setStatus({ id: onDragActiveCard, value: type }));
+        } else if (type !== onDragActiveType) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `Type is not ${type}`,
+                timer: 1500,
+                confirmButtonText: "OK",
+            });
+        } else {
+            return;
+        }
     };
 
     return (

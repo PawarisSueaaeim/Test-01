@@ -11,12 +11,14 @@ export type ITodoList = {
     }[];
     queueDatas: string[];
     onDragActiveCard: string | number | null;
+    onDragActiveType: string;
 };
 
 const initialState: ITodoList =  {
     listDatas: [],
     queueDatas: [],
     onDragActiveCard: null,
+    onDragActiveType: "",
 };
 
 const autoDeleteTodoListSlice = createSlice({
@@ -31,9 +33,12 @@ const autoDeleteTodoListSlice = createSlice({
                     state.onDragActiveCard = value;
                     break;
                 }
+                case "onDragActiveType": {
+                    state.onDragActiveType = value;
+                    break;   
+                }
                 case "listDatas": {
                     state.listDatas = processListDataModel(value);
-                    console.log(processListDataModel(value));
                     break;
                 }
             }

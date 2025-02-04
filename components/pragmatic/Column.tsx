@@ -25,7 +25,6 @@ export default function Column({ title, listDatas, type }: Props) {
             <DropArea
                 className={`${listDatas?.length < 1 ? "h-[200px]" : ""}`}
                 type={type}
-                position={0}
             />
             {listDatas?.map((item: IListData, index) => {
                 if (type === "None" && item.status === "None") {
@@ -37,7 +36,6 @@ export default function Column({ title, listDatas, type }: Props) {
                                 index={index}
                                 type={item.type}
                             />
-                            <DropArea id={item.id} name={item.name} position={index + 1} type="None"/>
                         </Fragment>
                     );
                 }else if (type === "Fruit" && item.status === "Fruit") {
@@ -49,7 +47,6 @@ export default function Column({ title, listDatas, type }: Props) {
                                 index={index}
                                 type={item.type}
                             />
-                            <DropArea id={item.id} name={item.name} type={type} position={index + 1}/>
                         </Fragment>
                     );
                 }else if (type === "Vegetable" && item.status === "Vegetable") {
@@ -61,7 +58,6 @@ export default function Column({ title, listDatas, type }: Props) {
                                 index={index}
                                 type={item.type}
                             />
-                            <DropArea id={item.id} name={item.name} type={type} position={index + 1}/>
                         </Fragment>
                     );
                 }
